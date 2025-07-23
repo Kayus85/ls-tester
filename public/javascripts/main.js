@@ -1,11 +1,12 @@
 const form = document.querySelector('form');
+
 form.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     const formData = new FormData(event.target);
     const paymentStatus = formData.get('status');
 
-    await fetch('/set-payment-status', {
+    const res = await fetch('/set-payment-status', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -13,6 +14,13 @@ form.addEventListener('submit', async (event) => {
         body: JSON.stringify({
             status: paymentStatus,
         })
-    }).then(response => response.json())
-        .then(data => console.log('Server response:', data))
+    })
+
+    const data = await res.json();
+
+    console.log(data.redirectUrl)
+    console.log(data.success)
+    if (data.success && data.redirectUrl) {
+        window.location.href = data.redirectUrl;
+    };
 })

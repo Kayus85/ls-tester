@@ -59,7 +59,6 @@ router.get('/pay/:id', (req, res) => {
   res.render('index', {
     orderId,
     orderTotal,
-    redirectUrl,
   });
 })
 
@@ -67,7 +66,13 @@ router.post('/set-payment-status', (req, res) => {
   paymentStatus = req.body['status'];
   console.log(`Payment status set to ${paymentStatus}`)
 
-  res.send({ success: true })
+  res.send({ success: true, redirectUrl })
+})
+
+router.get('/payment/:orderId', (req, res) => {
+  res.send({
+    status: paymentStatus,
+  })
 })
 
 export default router;
