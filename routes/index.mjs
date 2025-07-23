@@ -8,10 +8,19 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/payment_methods', (req, res) => {
-  console.log('request received');
-  console.log(req.body);
-  console.log(req.query)
-
+  res.send({
+    "payment_methods": [
+      {
+        "id": 1,
+        "title": "Mastercard",
+        "icon": "mastercard"
+      },
+      {
+        "id": 2,
+        "title": "Visa",
+        "icon": "visa"
+      }]
+  })
 })
 
 export default router;
