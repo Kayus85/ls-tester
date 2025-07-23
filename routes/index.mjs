@@ -4,9 +4,26 @@ const router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.send('it\'s working');
 });
 
+// const orders = [];
+//
+// const order = {
+//   id: '',
+//   total: 0,
+//   redirectUrl: '',
+//   paymentStatus: ''
+// }
+
+let orderId = ''
+let orderTotal = 0
+let redirectUrl = ''
+let paymentStatus = ''
+
+{
+
+}
 router.post('/payment_methods', (req, res) => {
   res.send({
     "payment_methods": [
@@ -21,6 +38,36 @@ router.post('/payment_methods', (req, res) => {
         "icon": "visa"
       }]
   })
+})
+
+router.post('/payment', (req, res) => {
+  const body = req.body;
+
+  orderId = body['order']['id'];
+  orderTotal = body['order']['price_incl'];
+  redirectUrl = body['redirect_url'];
+
+
+  res.send({
+    payment_url: `https://c-series-payment-app.onrender.com/pay/${orderId}`
+  })
+})
+
+router.get('/pay/:id', (req, res) => {
+  const params = req.params;
+  console.log(params)
+  res.render('index', {
+    orderId,
+    orderTotal,
+    redirectUrl,
+  });
+})
+
+router.post('/set-payment-status', (req, res) => {
+  paymentStatus = req.body['status'];
+  console.log(`Payment status set to ${paymentStatus}`)
+
+  res.send({ success: true })
 })
 
 export default router;

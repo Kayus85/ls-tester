@@ -19,6 +19,10 @@ const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename)
 app.use(express.static(join(__dirname, 'public')));
 
+const viewsPath = join(__dirname, "views")
+app.set("view engine", "hbs");
+app.set("views", viewsPath);
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 

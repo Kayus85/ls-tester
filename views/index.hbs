@@ -1,0 +1,27 @@
+<html>
+
+<head>
+  <title>Express</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+  <h1>Payment</h1>
+        <p>Order #: <span id="order">{{orderId}}</span></p>
+        <p>Total due: <span id="payment"></span>{{orderTotal}}</p>
+  <form name="statusForm">
+    <label for="status-select">Choose a payment status:</label>
+    <select name="status" id="status-select">
+      <option value="">--Choose payment status to return--</option>
+      <option value="paid">paid</option>
+      <option value="pending">pending</option>
+      <option value="expired">expired</option>
+      <option value="cancelled">cancelled</option>
+    </select>
+            <div><input type="submit" value="Pay"/></div>
+    
+  </form>
+  <script type="module" src="/javascripts/main.js"></script>
+</body>
+
+</html>
